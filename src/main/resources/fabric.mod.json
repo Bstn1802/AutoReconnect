@@ -3,8 +3,8 @@
   "id": "autoreconnect",
   "version": "1.0.0",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "AutoReconnect",
+  "description": "This mod allows you to afk without fear of getting disconnected. It will make 4 attempts to reconnect you to the server you were disconnected from, with a delay of 3, 10, 60 and 300 seconds.",
   "authors": [
     "Bstn1802"
   ],
@@ -14,7 +14,7 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "icon": "",
 
   "environment": "*",
   "entrypoints": {
