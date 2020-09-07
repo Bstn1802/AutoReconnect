@@ -30,6 +30,7 @@ public class MixinMinecraftClient
 	{
 		System.out.println(screen == null ? null : screen.getClass().getSimpleName());
 		//TODO interpret disconnect reason
+		//TODO revalidate session if needed
 		if (screen instanceof DisconnectedScreen)
 		{
 			if (attempt < 0) return;
@@ -53,6 +54,7 @@ public class MixinMinecraftClient
 		}
 		else if (screen instanceof MultiplayerScreen || MinecraftClient.getInstance().player != null)
 		{
+			System.out.println(screen == null ? null : screen.getClass().getSimpleName());
 			//TODO find better conditions to reset
 			reset();
 		}
@@ -72,7 +74,7 @@ public class MixinMinecraftClient
 				return;
 			}
 			mc.disconnect();
-			mc.openScreen(new ConnectScreen(new TitleScreen(), mc, lastServerEntry));
+			mc.openScreen(new ConnectScreen(new MultiplayerScreen(new TitleScreen()), mc, lastServerEntry));
 		}
 	}
 }

@@ -1,7 +1,7 @@
 package net.autoreconnect.mixin;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.util.Window;
 import net.minecraft.client.util.math.MatrixStack;
@@ -27,11 +27,11 @@ public class MixinDisconnectedScreen
 	private void render(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo info)
 	{
 		Window window = MinecraftClient.getInstance().getWindow();
-		DrawableHelper.drawCenteredString(matrices,
-			MinecraftClient.getInstance().textRenderer,
-			attempt == -1 ? "Can not reconnect!" : "Reconnecting in " + getCountdown() + "...",
-			window.getScaledWidth() / 2,
-			window.getScaledHeight() / 4,
+		TextRenderer renderer = MinecraftClient.getInstance().textRenderer;
+		String text = attempt == -1 ? "Can not reconnect!" : "Reconnecting in " + getCountdown() + "...";
+		renderer.draw(matrices, text,
+			(window.getScaledWidth() - renderer.getWidth(text)) / 2F,
+			(window.getScaledHeight() - renderer.fontHeight) / 3F,
 			0xFF4422);
 	}
 }

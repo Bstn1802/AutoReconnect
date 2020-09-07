@@ -47,6 +47,7 @@ public class AutoReconnect implements ModInitializer
 		cancel();
 		attempt = 0;
 		connect = false;
+		System.out.println("reset");
 	}
 
 	public static int getCountdown()
