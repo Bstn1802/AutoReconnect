@@ -37,7 +37,7 @@ public class MixinMinecraftClient
 			switch (attempt++)
 			{
 				case 0:
-					startCountdown(3);
+					startCountdown(30);
 					break;
 				case 1:
 					startCountdown(10);
