@@ -4,8 +4,11 @@
 
 ### Description
 
-This mod allows you to afk without fear of getting disconnected. It will make 4 attempts to reconnect you to the server you were disconnected from, with a delay of 3, 10, 60 and 300 seconds.
-After 4 failed attempts it will no longer try to reconnect.
+A configuration placed in *.minecraft/config/config/autoreconnect.yaml*
+If this file is not present, start the game
+
+Configuration contains some int's
+It's list of time to reconnect
 
 <sub>(Btw you can exit the disconnect screen with <kbd>Esc</kbd>)</sub>
 
