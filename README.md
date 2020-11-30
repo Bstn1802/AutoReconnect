@@ -1,6 +1,6 @@
 # AutoReconnect
 
-###It's a fork of auto-reconnect mod.
+### It's a fork of auto-reconnect mod.
 
 ### Description
 
