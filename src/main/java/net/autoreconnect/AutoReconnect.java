@@ -1,13 +1,22 @@
 package net.autoreconnect;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.FabricLoader;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class AutoReconnect implements ModInitializer
 {
+	public static Config config;
+
+	static {
+		loadConfig();
+	}
+
 	public static int attempt = 0;
 	public static boolean connect = false;
 
@@ -47,7 +56,14 @@ public class AutoReconnect implements ModInitializer
 		cancel();
 		attempt = 0;
 		connect = false;
-		System.out.println("reset");
+	}
+
+	public static void loadConfig(){
+		try {
+			config = Config.getInstance(new File(FabricLoader.INSTANCE.getConfigDir().toFile(),"autoreconnect.yaml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static int getCountdown()

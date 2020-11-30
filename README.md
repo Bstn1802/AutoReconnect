@@ -1,5 +1,7 @@
 # AutoReconnect
 
+###It's a fork of auto-reconnect mod.
+
 ### Description
 
 This mod allows you to afk without fear of getting disconnected. It will make 4 attempts to reconnect you to the server you were disconnected from, with a delay of 3, 10, 60 and 300 seconds.

@@ -1,5 +1,6 @@
 package net.autoreconnect.mixin;
 
+import net.autoreconnect.AutoReconnect;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.*;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
@@ -8,6 +9,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.Arrays;
 
 import static net.autoreconnect.AutoReconnect.*;
 
@@ -33,28 +36,16 @@ public class MixinMinecraftClient
 		//TODO revalidate session if needed
 		if (screen instanceof DisconnectedScreen)
 		{
+			int time;
 			if (attempt < 0) return;
-			switch (attempt++)
-			{
-				case 0:
-					startCountdown(3);
-					break;
-				case 1:
-					startCountdown(10);
-					break;
-				case 2:
-					startCountdown(60);
-					break;
-				case 3:
-					startCountdown(300);
-					break;
-				default:
-					attempt = -1;
-			}
+			if(config.rejoinTime.length<attempt)
+				time=config.rejoinTime[attempt];
+			else
+				time=config.rejoinTime[config.rejoinTime.length-1];
+			startCountdown(time);
 		}
 		else if (screen instanceof MultiplayerScreen || MinecraftClient.getInstance().player != null)
 		{
-			System.out.println(screen == null ? null : screen.getClass().getSimpleName());
 			//TODO find better conditions to reset
 			reset();
 		}
