@@ -13,10 +13,6 @@ public class AutoReconnect implements ModInitializer
 {
 	public static Config config;
 
-	static {
-		loadConfig();
-	}
-
 	public static int attempt = 0;
 	public static boolean connect = false;
 
@@ -24,7 +20,9 @@ public class AutoReconnect implements ModInitializer
 	private static Timer timer = null;
 
 	@Override
-	public void onInitialize() { }
+	public void onInitialize() {
+		loadConfig();
+	}
 
 	public static void startCountdown(int seconds)
 	{
