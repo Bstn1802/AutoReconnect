@@ -58,7 +58,7 @@ public class AutoReconnect implements ModInitializer
 
 	public static void loadConfig(){
 		try {
-			config = Config.getInstance(new File(FabricLoader.INSTANCE.getConfigDir().toFile(),"autoreconnect.yaml"));
+			config = Config.getInstance(new File(FabricLoader.INSTANCE.getConfigDir().toFile(),"autoreconnect.json"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

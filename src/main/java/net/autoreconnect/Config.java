@@ -1,22 +1,27 @@
 package net.autoreconnect;
 
+import com.google.gson.Gson;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
-import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
 
 public class Config {
     public int rejoinTime[];
     public static Config getInstance(File file) throws IOException {
-        Yaml yaml = new Yaml();
+        Gson gson = new Gson();
         if(file.exists()) {
-            Config config = yaml.load(new FileInputStream(file));
+            FileReader reader=new FileReader(file);
+            Config config = gson.fromJson(reader,Config.class);
+            reader.close();
             return config;
         }
         else{
             Config newCfg=new Config();
             Writer writer=new FileWriter(file);
-            yaml.dump(newCfg,writer);
+            String s = gson.toJson(newCfg, Config.class);
+            System.out.println(s);
+            writer.write(s);
+            writer.close();
             return newCfg;
         }
     }
