@@ -31,7 +31,6 @@ public class MixinMinecraftClient
 	@Inject(at = @At("RETURN"), method = "openScreen")
 	private void openScreen(Screen screen, CallbackInfo info)
 	{
-		System.out.println(screen == null ? null : screen.getClass().getSimpleName());
 		//TODO interpret disconnect reason
 		//TODO revalidate session if needed
 		if (screen instanceof DisconnectedScreen)

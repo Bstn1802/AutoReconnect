@@ -1,0 +1,5 @@
+{
+  "gui.autoreconnect.reload_config": "Reload config",
+  "gui.autoreconnect.error": "Can not reconnect!",
+  "gui.autoreconnect.reconnect_in": "Reconnecting in "
+}

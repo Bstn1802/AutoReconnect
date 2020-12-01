@@ -1,8 +1,10 @@
 package net.autoreconnect.mixin;
 
+import net.autoreconnect.Lang;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.Window;
 import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,7 +30,7 @@ public class MixinDisconnectedScreen
 	{
 		Window window = MinecraftClient.getInstance().getWindow();
 		TextRenderer renderer = MinecraftClient.getInstance().textRenderer;
-		String text = attempt == -1 ? "Can not reconnect!" : "Reconnecting in " + getCountdown() + "...";
+		String text = attempt == -1 ? Lang.error() : Lang.reconnectIn() + getCountdown() + "...";
 		renderer.draw(matrices, text,
 			(window.getScaledWidth() - renderer.getWidth(text)) / 2F,
 			(window.getScaledHeight() - renderer.fontHeight) / 3F,
