@@ -35,13 +35,15 @@ public class MixinMinecraftClient
 		//TODO revalidate session if needed
 		if (screen instanceof DisconnectedScreen)
 		{
+			System.out.println(attempt);
 			int time;
 			if (attempt < 0) return;
-			if(config.rejoinTime.length<attempt)
+			if(config.rejoinTime.length>attempt)
 				time=config.rejoinTime[attempt];
 			else
 				time=config.rejoinTime[config.rejoinTime.length-1];
 			startCountdown(time);
+			attempt++;
 		}
 		else if (screen instanceof MultiplayerScreen || MinecraftClient.getInstance().player != null)
 		{
