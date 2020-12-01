@@ -4,7 +4,7 @@
 
 ### Description
 
-A configuration placed in *.minecraft/config/config/autoreconnect.yaml*
+A configuration placed in *.minecraft/config/config/autoreconnect.json*
 If this file is not present, start the game
 
 Configuration contains some int's
