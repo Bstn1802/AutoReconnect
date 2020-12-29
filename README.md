@@ -8,7 +8,7 @@ A configuration placed in *.minecraft/config/config/autoreconnect.json*
 If this file is not present, start the game
 
 Configuration contains some int's
-It's list of time to reconnect
+It's list of time between reconnects
 
 <sub>(Btw you can exit the disconnect screen with <kbd>Esc</kbd>)</sub>
 
