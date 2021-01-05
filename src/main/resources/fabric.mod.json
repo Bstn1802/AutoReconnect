@@ -1,22 +1,23 @@
 {
   "schemaVersion": 1,
   "id": "autoreconnect",
-  "version": "1.0.1",
+  "version": "1.1.0",
 
   "name": "AutoReconnect",
-  "description": "This mod allows you to afk without fear of getting disconnected. It will make 4 attempts to reconnect you to the server you were disconnected from, with a delay of 3, 10, 60 and 300 seconds.",
+  "description": "This mod will automatically try to reconnect you back to a server if you got disconnected.\nBy default, it will make 4 attempts after 3, 10, 30 and 60 seconds.",
   "authors": [
     "Bstn1802"
   ],
   "contact": {
-    "homepage": "https://github.com/Bstn1802",
-    "sources": "https://github.com/Bstn1802/AutoReconnect"
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/autoreconnect",
+    "sources": "https://github.com/Bstn1802/AutoReconnect",
+    "issues": "https://github.com/Bstn1802/AutoReconnect/issues"
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/icon.png",
+  "icon": "assets/icon16.png",
 
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "main": [
       "net.autoreconnect.AutoReconnect"
@@ -29,9 +30,6 @@
   "depends": {
     "fabricloader": ">=0.7.4",
     "fabric": "*",
-    "minecraft": "1.16.x"
-  },
-  "suggests": {
-    "flamingo": "*"
+    "minecraft": ">=1.16"
   }
 }

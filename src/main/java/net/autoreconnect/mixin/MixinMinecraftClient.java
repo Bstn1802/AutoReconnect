@@ -5,76 +5,76 @@ import net.minecraft.client.gui.screen.*;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.network.ServerInfo;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.autoreconnect.AutoReconnect.*;
+import static net.autoreconnect.Util.log;
 
 @Mixin(MinecraftClient.class)
 public class MixinMinecraftClient
 {
-	private ServerInfo lastServerEntry;
+	@Shadow
+	public Screen currentScreen;
 
 	@Inject(at = @At("HEAD"), method = "setCurrentServerEntry")
-	private void setCurrentServerEntry(ServerInfo info, CallbackInfo ci)
+	private void setCurrentServerEntry(ServerInfo serverInfo, CallbackInfo info)
 	{
-		if (info != null)
+		//save last known non-null server entry
+		if (serverInfo != null)
 		{
-			lastServerEntry = info;
+			lastServerEntry = serverInfo;
 		}
 	}
 
-	@Inject(at = @At("RETURN"), method = "openScreen")
-	private void openScreen(Screen screen, CallbackInfo info)
-	{
-		System.out.println(screen == null ? null : screen.getClass().getSimpleName());
-		//TODO interpret disconnect reason
-		//TODO revalidate session if needed
-		if (screen instanceof DisconnectedScreen)
-		{
-			if (attempt < 0) return;
-			switch (attempt++)
-			{
-				case 0:
-					startCountdown(3);
-					break;
-				case 1:
-					startCountdown(10);
-					break;
-				case 2:
-					startCountdown(60);
-					break;
-				case 3:
-					startCountdown(300);
-					break;
-				default:
-					attempt = -1;
-			}
-		}
-		else if (screen instanceof MultiplayerScreen || MinecraftClient.getInstance().player != null)
-		{
-			System.out.println(screen == null ? null : screen.getClass().getSimpleName());
-			//TODO find better conditions to reset
-			reset();
-		}
-	}
-
-	@Inject(at = @At("RETURN"), method = "tick")
+	@Inject(at = @At("HEAD"), method = "tick")
 	private void tick(CallbackInfo info)
 	{
-		//TODO find better way to call connect on main thread from after timer countdown finished
-		if (connect)
+		// if not paused, decrements countdown until its negative, succeeds if its 0
+		if (ticks >= 0 && --ticks == 0)
 		{
-			connect = false;
-			MinecraftClient mc = MinecraftClient.getInstance();
 			if (lastServerEntry == null)
 			{
-				attempt = -1;
-				return;
+				resetAttempts();
 			}
-			mc.disconnect();
-			mc.openScreen(new ConnectScreen(new MultiplayerScreen(new TitleScreen()), mc, lastServerEntry));
+			else
+			{
+				MinecraftClient mc = MinecraftClient.getInstance();
+				mc.openScreen(new ConnectScreen(new MultiplayerScreen(new TitleScreen()), mc, lastServerEntry));
+			}
+		}
+	}
+
+	@Inject(at = @At("INVOKE"), method = "openScreen")
+	private void openScreen(Screen newScreen, CallbackInfo info)
+	{
+		// old and new screen must not be the same type, actually happens very often for some reason
+		if ((currentScreen == null ? null : currentScreen.getClass()) != (newScreen == null ? null : newScreen.getClass()))
+		{
+			if (currentScreen instanceof DisconnectedScreen && ( // exited disconnect screen using...
+					newScreen instanceof MultiplayerScreen || // ...cancel button on disconnect screen
+					newScreen instanceof TitleScreen || // ...escape key
+					newScreen != null && newScreen.getClass().getSimpleName().equals("AuthScreen")) || // ...AuthMe re-authenticate button
+				(currentScreen instanceof ConnectScreen && !(newScreen instanceof DisconnectedScreen))) // connection successful or cancelled using cancel button on connect screen
+			{
+				resetAttempts();
+			}
+			// player got disconnected
+			else if (newScreen instanceof DisconnectedScreen)
+			{
+				// if last known server is not null and next attempt is configured
+				if (lastServerEntry != null && ++attempt < delayList.length)
+				{
+					ticks = delayList[attempt] * 20;
+				}
+				else
+				{
+					resetAttempts();
+				}
+				log("lastServerEntry: %s, attempt: %d", lastServerEntry == null ? "null" : lastServerEntry.name, attempt);
+			}
 		}
 	}
 }

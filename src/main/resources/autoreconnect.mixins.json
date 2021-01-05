@@ -6,7 +6,9 @@
   "mixins": [
   ],
   "client": [
+    "MixinClientPlayNetworkHandler",
     "MixinDisconnectedScreen",
+    "MixinClientPlayerEntity",
     "MixinMinecraftClient"
   ],
   "injectors": {
