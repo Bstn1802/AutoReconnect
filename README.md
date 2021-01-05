@@ -20,7 +20,7 @@ By default, it will make 4 attempts after 3, 10, 30 and 60 seconds.
 ### Installation
 
 1. [Download](https://fabricmc.net/use/) and install Fabric
-2. Download [Fabric API]() and put the jar file into the mods folder
+2. Download [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) and put the jar file into the mods folder
 3. Do the same for this mod
 
 ### Compatibility
@@ -29,18 +29,7 @@ By default, it will make 4 attempts after 3, 10, 30 and 60 seconds.
   Properly shows the mod icon, name and author
   and provides a link for the curseforge project page and the github issues page
 * [AuthMe](https://www.curseforge.com/minecraft/mc-mods/auth-me) <br>
-  Pauses the countdown if you click on the Re-authenticate button to revalidate the session of the game
-
-### Common questions
-
-* _Can I change the delay?_<br>
-  Yes, you finally can with the latest version of this mod.
-* _Forge version?_<br>
-  Simply no. I am not interested in developing mods using Forge.
-* _Version for 1.13.x or lower?_<br>
-  Fabric does not exist for those versions.
-* _Version for 1.14.x or 1.15.x?_<br>
-  If there is enough demand for it I might make a version for those versions of the game.
+  Cancels the countdown if you click on the Re-authenticate button to revalidate the session of the game
 
 ### Screenshots
 
