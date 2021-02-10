@@ -3,6 +3,11 @@
 This mod will automatically try to reconnect you back to a server if you got disconnected.
 By default, it will make 4 attempts after 3, 10, 30 and 60 seconds.
 
+### Curseforge
+Although I also provide downloads here on github as well, please visit the Curseforge page [here](https://www.curseforge.com/minecraft/mc-mods/autoreconnect).
+Especially if you have questions, don't open a new issue everytime, but make a comment on the curseforge page instead.
+Also read this readme or the description on the curseforge page before.
+
 ### Features
 
 * Multiple individually delayed reconnect attempts
