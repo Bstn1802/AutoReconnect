@@ -1,6 +1,5 @@
 package net.autoreconnect;
 
-import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.text.LiteralText;
@@ -14,22 +13,17 @@ import java.util.Objects;
 
 import static net.minecraft.util.Formatting.RED;
 
-public class Util
-{
+public class Util {
 	// sends message to player if in game or logs to console with prefix '[<MOD_NAME>]'
-	public static void send(Text text)
-	{
+	public static void send(Text text) {
 		ClientPlayerEntity player = MinecraftClient.getInstance().player;
-		if (player == null)
-		{
+		if (player == null) {
 			// if player is not in game then print to console in error or default stream depending on weather the text is red or not
 			Logger logger = LogManager.getLogger("AutoReconnect");
-			if (Objects.equals(text.getStyle().getColor(), TextColor.fromFormatting(RED)))
-			{
+			if (Objects.equals(text.getStyle().getColor(), TextColor.fromFormatting(RED))) {
 				logger.error("[AutoReconnect] " + text.getString());
 			}
-			else
-			{
+			else {
 				logger.info("[AutoReconnect] " + text.getString());
 			}
 		}
@@ -37,19 +31,16 @@ public class Util
 	}
 
 	// logs in console with prefix '[<MOD_NAME>]'
-	public static void log(String format, Object... args)
-	{
+	public static void log(String format, Object... args) {
 		LogManager.getLogger("AutoReconnect").info("[AutoReconnect] " + String.format(format, args));
 	}
 
 	// easy text creation methods
-	public static Text colored(String text, Formatting formatting)
-	{
+	public static Text colored(String text, Formatting formatting) {
 		return new LiteralText(text).formatted(formatting);
 	}
 
-	public static Text err(Exception ex)
-	{
+	public static Text err(Exception ex) {
 		return colored(ex.getClass().getSimpleName() + ": " + ex.getLocalizedMessage(), RED);
 	}
 }

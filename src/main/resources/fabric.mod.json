@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "autoreconnect",
-  "version": "1.1.0",
+  "version": "1.2.0",
 
   "name": "AutoReconnect",
   "description": "This mod will automatically try to reconnect you back to a server if you got disconnected.\nBy default, it will make 4 attempts after 3, 10, 30 and 60 seconds.",
@@ -30,6 +30,6 @@
   "depends": {
     "fabricloader": ">=0.7.4",
     "fabric": "*",
-    "minecraft": ">=1.16"
+    "minecraft": ">=1.17"
   }
 }
