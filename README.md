@@ -1,4 +1,4 @@
-# AutoReconnect [1.16+][Fabric]
+# AutoReconnect [1.16/1.17][Fabric]
 
 This mod will automatically try to reconnect you back to a server if you got disconnected.
 By default, it will make 4 attempts after 3, 10, 30 and 60 seconds.
