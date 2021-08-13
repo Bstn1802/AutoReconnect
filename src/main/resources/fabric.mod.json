@@ -1,8 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "autoreconnect",
-  "version": "1.1.0",
-
+  "version": "${version}",
   "name": "AutoReconnect",
   "description": "This mod will automatically try to reconnect you back to a server if you got disconnected.\nBy default, it will make 4 attempts after 3, 10, 30 and 60 seconds.",
   "authors": [
@@ -13,23 +12,23 @@
     "sources": "https://github.com/Bstn1802/AutoReconnect",
     "issues": "https://github.com/Bstn1802/AutoReconnect/issues"
   },
-
   "license": "CC0-1.0",
   "icon": "assets/icon16.png",
-
   "environment": "client",
   "entrypoints": {
     "main": [
-      "net.autoreconnect.AutoReconnect"
+      "autoreconnect.AutoReconnect"
+    ],
+    "modmenu": [
+      "autoreconnect.config.ModMenuIntegration"
     ]
   },
   "mixins": [
     "autoreconnect.mixins.json"
   ],
-
   "depends": {
-    "fabricloader": ">=0.7.4",
     "fabric": "*",
-    "minecraft": ">=1.16"
+    "fabricloader": ">=0.7.4",
+    "minecraft": ">=1.16.4"
   }
 }

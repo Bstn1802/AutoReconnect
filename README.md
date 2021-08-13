@@ -1,4 +1,6 @@
-# AutoReconnect [1.16+][Fabric]
+# AutoReconnect [1.17.1][Fabric][Client]
+
+### Description
 
 This mod will automatically try to reconnect you back to a server if you got disconnected.
 By default, it will make 4 attempts after 3, 10, 30 and 60 seconds.
@@ -6,41 +8,39 @@ By default, it will make 4 attempts after 3, 10, 30 and 60 seconds.
 ### Features
 
 * Multiple individually delayed reconnect attempts
+* Toggle for infinitely many reconnect attempts with the last configured delay
 * Displays a countdown on the disconnect screen
+* Can automatically send commands after reconnecting to a specific server
 * Allows you to exit the disconnect screen quickly by pressing the escape key
 * Customizable
     * Amount of attempts
     * Delay between each attempt
-* Client side commands
-    * `/autoreconnect reload` Reloads the config and displays the settings in chat
-    * `/autoreconnect config [<delayList>]` Sets the delay between each attempt<br>
-    `[<delayList>]` must be a Nbt List Tag containing Integers, e.g. `[3, 10, 30, 60]` or `[I;3, 10, 30, 60]`
-* Support for several mods
+* Support for ModMenu and AuthMe
+* Support for servers with lobbies
 
 ### Installation
 
-1. [Download](https://fabricmc.net/use/) and install Fabric
-2. Download [Fabric API]() and put the jar file into the mods folder
-3. Do the same for this mod
+1. Download and install [Fabric](https://fabricmc.net/use/) for the latest client version
+2. Download [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) and put the .jar file into the mods folder
+3. Download this mod and put the .jar file into the same folder
 
 ### Compatibility
 
 * [ModMenu](https://www.curseforge.com/minecraft/mc-mods/modmenu) <br>
   Properly shows the mod icon, name and author
-  and provides a link for the curseforge project page and the github issues page
+  and provides a link for the curseforge project page and the github issues page\
+  *New!* Graphical user interface to configure the mod in game
 * [AuthMe](https://www.curseforge.com/minecraft/mc-mods/auth-me) <br>
   Pauses the countdown if you click on the Re-authenticate button to revalidate the session of the game
 
 ### Common questions
 
 * _Can I change the delay?_<br>
-  Yes, you finally can with the latest version of this mod.
+  Yes, you can configure the mods config file manually or use ModMenu(_recommended_)
 * _Forge version?_<br>
   Simply no. I am not interested in developing mods using Forge.
 * _Version for 1.13.x or lower?_<br>
   Fabric does not exist for those versions.
-* _Version for 1.14.x or 1.15.x?_<br>
-  If there is enough demand for it I might make a version for those versions of the game.
 
 ### Screenshots
 

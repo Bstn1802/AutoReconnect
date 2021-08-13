@@ -1,0 +1,9 @@
+{
+  "text.autoconfig.autoreconnect.title": "AutoReconnect Config",
+  "text.autoconfig.autoreconnect.option.delays": "Delays",
+  "text.autoconfig.autoreconnect.option.infinite": "Infinite",
+  "text.autoconfig.autoreconnect.option.messages": "Server Messages",
+  "text.autoconfig.autoreconnect.option.messages.serverAddress": "Server Address",
+  "text.autoconfig.autoreconnect.option.messages.messages": "Messages",
+  "text.autoconfig.autoreconnect.option.messages.delay": "Delay"
+}

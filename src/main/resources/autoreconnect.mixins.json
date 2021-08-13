@@ -1,15 +1,13 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.autoreconnect.mixin",
-  "compatibilityLevel": "JAVA_8",
-  "mixins": [
-  ],
+  "package": "autoreconnect.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [],
   "client": [
-    "MixinClientPlayNetworkHandler",
-    "MixinDisconnectedScreen",
-    "MixinClientPlayerEntity",
-    "MixinMinecraftClient"
+    "ClientPlayerEntityMixin",
+    "DisconnectedScreenMixin",
+    "MinecraftClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1
