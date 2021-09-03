@@ -8,16 +8,18 @@ import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 
 import java.util.List;
 
-@SuppressWarnings({"FieldMayBeFinal", "FieldCanBeLocal", "MismatchedQueryAndUpdateOfCollection"})
+@SuppressWarnings({"FieldMayBeFinal", "FieldCanBeLocal", "MismatchedQueryAndUpdateOfCollection", "unused"})
 @Config(name = "autoreconnect")
 public class ModConfig implements ConfigData {
     @Comment("Delays between attempts in seconds")
-    private List<Integer> delays = List.of(3, 10, 30, 60);
+    private List<Integer> delays;
     @Comment("Whether to repeat reconnecting with the last configured delay")
-    private boolean infinite = false;
+    private boolean infinite;
     @Comment("Messages to send after joining the world on a specific server")
     @CollapsibleObject
-    private ServerMessages messages = new ServerMessages();
+    private ServerMessages messages;
+
+    // TODO maybe postValidate() to ensure nothing is null or negative or empty string although messages would make sense to be null but not sure
 
     public int[] getDelays() {
         return delays.stream().mapToInt(Integer::intValue).toArray();
@@ -32,10 +34,10 @@ public class ModConfig implements ConfigData {
     }
 
     public static final class ServerMessages {
-        private String serverAddress = "";
-        private List<String> messages = List.of();
+        private String serverAddress;
+        private List<String> messages;
         @Comment("Delay between each message in milliseconds")
-        private int delay = 1000;
+        private int delay;
 
         public String getServerAddress() {
             return serverAddress;
