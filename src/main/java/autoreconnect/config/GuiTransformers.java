@@ -2,6 +2,7 @@ package autoreconnect.config;
 
 import me.shedaniel.clothconfig2.api.AbstractConfigListEntry;
 import me.shedaniel.clothconfig2.gui.entries.BaseListEntry;
+import me.shedaniel.clothconfig2.gui.entries.IntegerListEntry;
 import me.shedaniel.clothconfig2.gui.entries.IntegerListListEntry;
 
 import java.lang.reflect.Field;
@@ -15,7 +16,10 @@ public final class GuiTransformers {
 
     public static List<AbstractConfigListEntry> setMinimum(List<AbstractConfigListEntry> guis, int minimum) {
         for (AbstractConfigListEntry gui : guis) {
-            if (gui instanceof IntegerListListEntry) {
+            if (gui instanceof IntegerListEntry) {
+                ((IntegerListEntry) gui).setMinimum(minimum);
+            }
+            else if (gui instanceof IntegerListListEntry) {
                 ((IntegerListListEntry) gui).setMinimum(minimum);
             }
         }
@@ -38,7 +42,7 @@ public final class GuiTransformers {
         return guis;
     }
 
-    public static boolean isField(Field field, Class<ModConfig> clazz, String fieldName) {
+    public static boolean isField(Field field, Class<?> clazz, String fieldName) {
         try {
             return clazz.getDeclaredField(fieldName).equals(field);
         } catch (Exception ex) {

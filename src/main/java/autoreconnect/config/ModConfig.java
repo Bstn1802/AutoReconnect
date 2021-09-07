@@ -2,11 +2,12 @@ package autoreconnect.config;
 
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
-import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 
 import java.util.List;
+
+import static java.util.Collections.emptyList;
 
 @SuppressWarnings({"FieldMayBeFinal", "FieldCanBeLocal", "MismatchedQueryAndUpdateOfCollection", "unused"})
 @Config(name = "autoreconnect")
@@ -20,6 +21,16 @@ public class ModConfig implements ConfigData {
     private ServerMessages messages;
 
     // TODO maybe postValidate() to ensure nothing is null or negative or empty string although messages would make sense to be null but not sure
+
+
+    @Override
+    public void validatePostLoad() {
+        if (delays == null || delays.isEmpty() || delays.stream().anyMatch(i -> i <= 0)) delays = List.of(3, 10, 30, 60);
+        if (messages == null) messages = new ServerMessages();
+        if (messages.serverAddress == null) messages.serverAddress = "localhost";
+        if (messages.messages == null) messages.messages = emptyList();
+        if (messages.delay <= 0) messages.delay = 1000;
+    }
 
     public int[] getDelays() {
         return delays.stream().mapToInt(Integer::intValue).toArray();

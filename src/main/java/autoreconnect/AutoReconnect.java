@@ -48,7 +48,7 @@ public class AutoReconnect implements ModInitializer, DisconnectScreenRenderList
         GuiRegistry registry = AutoConfig.getGuiRegistry(ModConfig.class);
         registry.registerPredicateTransformer(
             (guis, s, f, c, d, g) -> GuiTransformers.setMinimum(guis, 1),
-            field -> GuiTransformers.isField(field, ModConfig.class, "delays")
+            field -> GuiTransformers.isField(field, ModConfig.class, "delays") || GuiTransformers.isField(field, ServerMessages.class, "delay")
         );
         registry.registerPredicateTransformer(
             (guis, s, f, c, d, g) -> GuiTransformers.disableInsertInFront(guis),
