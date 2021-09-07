@@ -20,9 +20,6 @@ public class ModConfig implements ConfigData {
     @CollapsibleObject
     private ServerMessages messages;
 
-    // TODO maybe postValidate() to ensure nothing is null or negative or empty string although messages would make sense to be null but not sure
-
-
     @Override
     public void validatePostLoad() {
         if (delays == null || delays.isEmpty() || delays.stream().anyMatch(i -> i <= 0)) delays = List.of(3, 10, 30, 60);
