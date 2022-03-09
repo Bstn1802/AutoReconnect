@@ -1,9 +1,13 @@
 {
+  "text.autoreconnect.disconnect.reconnect": "Reconnect",
+  "text.autoreconnect.disconnect.reconnect_in": "Reconnect in %d...",
+  "text.autoreconnect.disconnect.cancel": "Cancel",
+  "text.autoreconnect.disconnect.reconnect_failed": "Could not reconnect!",
   "text.autoconfig.autoreconnect.title": "AutoReconnect Config",
   "text.autoconfig.autoreconnect.option.delays": "Delays",
   "text.autoconfig.autoreconnect.option.infinite": "Infinite",
-  "text.autoconfig.autoreconnect.option.messages": "Server Messages",
-  "text.autoconfig.autoreconnect.option.messages.serverAddress": "Server Address",
-  "text.autoconfig.autoreconnect.option.messages.messages": "Messages",
-  "text.autoconfig.autoreconnect.option.messages.delay": "Delay"
+  "text.autoconfig.autoreconnect.option.autoMessages": "Server Messages",
+  "text.autoconfig.autoreconnect.option.autoMessages.name": "Name",
+  "text.autoconfig.autoreconnect.option.autoMessages.messages": "Messages",
+  "text.autoconfig.autoreconnect.option.autoMessages.delay": "Delay"
 }

@@ -8,24 +8,22 @@ import me.shedaniel.clothconfig2.gui.entries.IntegerListListEntry;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import static org.apache.logging.log4j.LogManager.getRootLogger;
-
-@SuppressWarnings("rawtypes")
 public final class GuiTransformers {
     private GuiTransformers() { }
 
+    @SuppressWarnings("rawtypes")
     public static List<AbstractConfigListEntry> setMinimum(List<AbstractConfigListEntry> guis, int minimum) {
         for (AbstractConfigListEntry gui : guis) {
-            if (gui instanceof IntegerListEntry) {
-                ((IntegerListEntry) gui).setMinimum(minimum);
-            }
-            else if (gui instanceof IntegerListListEntry) {
-                ((IntegerListListEntry) gui).setMinimum(minimum);
+            if (gui instanceof IntegerListEntry entry) {
+                entry.setMinimum(minimum);
+            } else if (gui instanceof IntegerListListEntry entry) {
+                entry.setMinimum(minimum);
             }
         }
         return guis;
     }
 
+    @SuppressWarnings("rawtypes")
     public static List<AbstractConfigListEntry> disableInsertInFront(List<AbstractConfigListEntry> guis) {
         for (AbstractConfigListEntry gui : guis) {
             if (gui instanceof BaseListEntry) {
@@ -34,9 +32,7 @@ public final class GuiTransformers {
                     if (insertInFront.canAccess(gui) || insertInFront.trySetAccessible()) {
                         insertInFront.set(gui, false);
                     }
-                } catch (NoSuchFieldException | IllegalAccessException ex) {
-                    getRootLogger().error(ex);
-                }
+                } catch (NoSuchFieldException | IllegalAccessException ignore) { }
             }
         }
         return guis;
@@ -45,9 +41,7 @@ public final class GuiTransformers {
     public static boolean isField(Field field, Class<?> clazz, String fieldName) {
         try {
             return clazz.getDeclaredField(fieldName).equals(field);
-        } catch (Exception ex) {
-            getRootLogger().error(ex);
-        }
+        } catch (NoSuchFieldException ignore) { }
         return false;
     }
 }
