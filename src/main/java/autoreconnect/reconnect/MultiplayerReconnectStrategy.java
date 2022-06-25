@@ -7,10 +7,10 @@ import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.network.ServerAddress;
 import net.minecraft.client.network.ServerInfo;
 
-public class MultiplayerReconnectHandler extends ReconnectHandler {
+public class MultiplayerReconnectStrategy extends ReconnectStrategy {
     private final ServerInfo serverInfo;
 
-    public MultiplayerReconnectHandler(ServerInfo serverInfo) {
+    public MultiplayerReconnectStrategy(ServerInfo serverInfo) {
         this.serverInfo = serverInfo;
     }
 

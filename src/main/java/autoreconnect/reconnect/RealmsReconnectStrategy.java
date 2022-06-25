@@ -5,10 +5,10 @@ import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.realms.dto.RealmsServer;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 
-public class RealmsReconnectHandler extends ReconnectHandler {
+public class RealmsReconnectStrategy extends ReconnectStrategy {
     private final RealmsServer realmsServer;
 
-    public RealmsReconnectHandler(RealmsServer realmsServer) {
+    public RealmsReconnectStrategy(RealmsServer realmsServer) {
         this.realmsServer = realmsServer;
     }
 
