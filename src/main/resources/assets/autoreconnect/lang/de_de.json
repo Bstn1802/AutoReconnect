@@ -2,7 +2,7 @@
   "text.autoreconnect.disconnect.reconnect": "Erneut verbinden",
   "text.autoreconnect.disconnect.reconnect_in": "Verbinde erneut in %d...",
   "text.autoreconnect.disconnect.cancel": "Abbrechen",
-  "text.autoreconnect.disconnect.reconnect_failed": "Verbindung konnte nicht wiederhergestellt werden!",
+  "text.autoreconnect.disconnect.reconnect_failed": "Konnte nicht erneut verbinden!",
 
   "text.autoreconnect.config.title": "AutoReconnect Konfiguration",
   "text.autoreconnect.config.option.delays": "Verzögerungen",
