@@ -19,7 +19,7 @@
   "text.autoreconnect.config.tooltip.option.automessages.instance": "Einzelne automatische Nachricht\nfür eine spezifische Welt, Server\noder einen Realm.",
   "text.autoreconnect.config.tooltip.option.automessages.name": "Name der Einzelspielerwelt,\ndes Servers oder des Realms.",
   "text.autoreconnect.config.tooltip.option.automessages.messages": "Nachricht, die nach einer erneuten\nVerbindung gesendet werden soll.",
-  "text.autoreconnect.config.tooltip.option.automessages.delay": "Verzögerung vor der ersten und\nzwischen jeder weiteren Nachricht.",
+  "text.autoreconnect.config.tooltip.option.automessages.delay": "Verzögerung vor der ersten und\nzwischen jeder weiteren Nachricht\nin Millisekunden.",
 
   "text.autoreconnect.config.error.empty_list": "Leere Liste!",
   "text.autoreconnect.config.error.empty_string": "Leeres Textfeld!"
