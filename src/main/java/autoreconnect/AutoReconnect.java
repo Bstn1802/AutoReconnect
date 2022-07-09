@@ -51,7 +51,7 @@ public class AutoReconnect implements ClientModInitializer {
             // should imply that both handlers target the same world/server
             // we return to preserve the attempts counter
             assert this.reconnectStrategy.getClass().equals(reconnectStrategy.getClass()) &&
-                this.reconnectStrategy.getName().equals(reconnectStrategy.getName());
+                    this.reconnectStrategy.getName().equals(reconnectStrategy.getName());
             return;
         }
         this.reconnectStrategy = reconnectStrategy;
@@ -94,12 +94,15 @@ public class AutoReconnect implements ClientModInitializer {
         if (!reconnectStrategy.isAttempting()) return; // manual (re)connect
 
         reconnectStrategy.resetAttempts();
-        // sendMessages if configured for this world/server
-        getConfig().getAutoMessagesForName(reconnectStrategy.getName())
-            .ifPresent(autoMessages -> sendMessages(
-                MinecraftClient.getInstance().player,
-                autoMessages.getMessages(),
-                autoMessages.getDelay()));
+
+        // Send automatic messages if configured for the current context
+        getConfig().getAutoMessagesForName(reconnectStrategy.getName()).ifPresent(
+                autoMessages -> sendAutomatedMessages(
+                        MinecraftClient.getInstance().player,
+                        autoMessages.getMessages(),
+                        autoMessages.getDelay()
+                )
+        );
     }
 
     public boolean isPlayingSingleplayer() {
@@ -124,21 +127,44 @@ public class AutoReconnect implements ClientModInitializer {
         // wait at end of method for no initial delay
         synchronized (countdown) { // just to be sure
             countdown.set(EXECUTOR_SERVICE.schedule(() ->
-                countdown(seconds - 1, callback), 1, TimeUnit.SECONDS));
+                    countdown(seconds - 1, callback), 1, TimeUnit.SECONDS));
         }
     }
 
-    // simulated timer using delayed recursion
-    private void sendMessages(ClientPlayerEntity player, Iterator<String> messages, int delay) {
-        if (!messages.hasNext()) return;
-        // wait at beginning of method for initial delay
-        EXECUTOR_SERVICE.schedule(
-            () -> {
-                player.sendChatMessage(messages.next());
-                sendMessages(player, messages, delay);
-            },
-            delay,
-            TimeUnit.MILLISECONDS);
+    /**
+     * Handle a list of messages to send by the player to the current connection.
+     *
+     * @param player   Player to send the message as.
+     * @param messages String Iterator of messages to send.
+     * @param delay    Delay in milliseconds before the first and between each following message.
+     */
+    private void sendAutomatedMessages(ClientPlayerEntity player, Iterator<String> messages, int delay) {
+        ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+        executorService.scheduleWithFixedDelay(() -> {
+            if (!messages.hasNext()) {
+                executorService.shutdown();
+                return;
+            }
+
+            sendMessage(player, messages.next());
+        }, delay, delay, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * Handles sending of a single message or command by the player.
+     *
+     * @param player  Player to send the message as.
+     * @param message String with the message or command to send.
+     */
+    private void sendMessage(ClientPlayerEntity player, String message) {
+        if (message.startsWith("/")) {
+            // The first starting slash has to be removed,
+            // otherwise it will be interpreted as a double slash.
+            String command = message.substring(1);
+            player.sendCommand(command);
+        } else {
+            player.sendChatMessage(message);
+        }
     }
 
     private static boolean sameType(Object a, Object b) {
@@ -149,11 +175,11 @@ public class AutoReconnect implements ClientModInitializer {
 
     private static boolean isMainScreen(Screen screen) {
         return screen instanceof TitleScreen || screen instanceof SelectWorldScreen ||
-            screen instanceof MultiplayerScreen || screen instanceof RealmsMainScreen;
+                screen instanceof MultiplayerScreen || screen instanceof RealmsMainScreen;
     }
 
     private static boolean isReAuthenticating(Screen from, Screen to) {
         return from instanceof DisconnectedScreen && to != null &&
-            to.getClass().getName().startsWith("me.axieum.mcmod.authme");
+                to.getClass().getName().startsWith("me.axieum.mcmod.authme");
     }
 }
