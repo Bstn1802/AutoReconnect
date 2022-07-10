@@ -1,19 +1,4 @@
 {
-  "text.autoreconnect.disconnect.reconnect": "Переподключение...",
-  "text.autoreconnect.disconnect.reconnect_in": "Переподключение через %d...",
-  "text.autoreconnect.disconnect.cancel": "Отмена",
-  "text.autoreconnect.disconnect.reconnect_failed": "Не удалось переподключиться!",
-  "text.autoconfig.autoreconnect.title": "Настройки AutoReconnect",
-  "text.autoconfig.autoreconnect.option.delays": "Ожидание",
-  "text.autoconfig.autoreconnect.option.infinite": "Бесконечно",
-  "text.autoconfig.autoreconnect.option.autoMessages": "Сообщения на сервере",
-  "text.autoconfig.autoreconnect.option.autoMessages.name": "Имя",
-  "text.autoconfig.autoreconnect.option.autoMessages.messages": "Сообщения",
-  "text.autoconfig.autoreconnect.option.autoMessages.delay": "Ожидание"
-}
-
-
-{
   "text.autoreconnect.disconnect.reconnect": "Переподключиться",
   "text.autoreconnect.disconnect.reconnect_in": "Переподключение через %d...",
   "text.autoreconnect.disconnect.cancel": "Отмена",
