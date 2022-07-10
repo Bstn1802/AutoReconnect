@@ -1,10 +1,10 @@
 package autoreconnect.reconnect;
 
-public abstract class ReconnectHandler {
+public abstract class ReconnectStrategy {
     private int attempt = -1;
 
     // package-private constructor
-    ReconnectHandler() { }
+    ReconnectStrategy() { }
 
     public abstract void reconnect();
 

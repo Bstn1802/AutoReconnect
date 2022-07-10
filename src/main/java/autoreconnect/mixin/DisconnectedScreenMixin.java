@@ -3,10 +3,10 @@ package autoreconnect.mixin;
 import autoreconnect.AutoReconnect;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ScreenTexts;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.screen.ScreenTexts;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
@@ -49,7 +49,7 @@ public class DisconnectedScreenMixin extends Screen {
 
     // actually return to parent screen and not to the title screen
     @Override
-    public void onClose() {
+    public void close() {
         assert this.client != null;
         this.client.setScreen(parent);
     }

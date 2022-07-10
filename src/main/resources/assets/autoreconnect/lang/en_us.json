@@ -3,11 +3,24 @@
   "text.autoreconnect.disconnect.reconnect_in": "Reconnect in %d...",
   "text.autoreconnect.disconnect.cancel": "Cancel",
   "text.autoreconnect.disconnect.reconnect_failed": "Could not reconnect!",
-  "text.autoconfig.autoreconnect.title": "AutoReconnect Config",
-  "text.autoconfig.autoreconnect.option.delays": "Delays",
-  "text.autoconfig.autoreconnect.option.infinite": "Infinite",
-  "text.autoconfig.autoreconnect.option.autoMessages": "Server Messages",
-  "text.autoconfig.autoreconnect.option.autoMessages.name": "Name",
-  "text.autoconfig.autoreconnect.option.autoMessages.messages": "Messages",
-  "text.autoconfig.autoreconnect.option.autoMessages.delay": "Delay"
+
+  "text.autoreconnect.config.title": "AutoReconnect Config",
+  "text.autoreconnect.config.option.delays": "Delays",
+  "text.autoreconnect.config.option.infinite": "Infinite",
+  "text.autoreconnect.config.option.automessages": "AutoMessages",
+  "text.autoreconnect.config.option.automessages.instance": "AutoMessages object",
+  "text.autoreconnect.config.option.automessages.name": "Name",
+  "text.autoreconnect.config.option.automessages.messages": "Messages",
+  "text.autoreconnect.config.option.automessages.delay": "Delay",
+
+  "text.autoreconnect.config.tooltip.option.delays": "Delays between attempts in seconds",
+  "text.autoreconnect.config.tooltip.option.infinite": "Whether to repeat reconnecting with the last configured delay",
+  "text.autoreconnect.config.tooltip.option.automessages": "Messages to send after a successful automatic reconnect",
+  "text.autoreconnect.config.tooltip.option.automessages.instance": "Single AutoMessages object for a specific world, server or realm",
+  "text.autoreconnect.config.tooltip.option.automessages.name": "Name of the singleplayer world, server entry or realm",
+  "text.autoreconnect.config.tooltip.option.automessages.messages": "Messages to be sent after automatically reconnecting",
+  "text.autoreconnect.config.tooltip.option.automessages.delay": "Delay between messages and before the first one in milliseconds",
+
+  "text.autoreconnect.config.error.empty_list": "Empty list!",
+  "text.autoreconnect.config.error.empty_string": "Empty text field!"
 }

@@ -6,9 +6,7 @@ import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.realms.gui.screen.DisconnectedRealmsScreen;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -30,9 +28,9 @@ public class DisconnectedScreensMixin extends Screen {
     private void constructor(Screen parent, Text title, Text reason, CallbackInfo info) {
         reconnectButton = new ButtonWidget(
             0, 0, 0, 20, // init height here, can't change it later, should always be 20
-            new TranslatableText("text.autoreconnect.disconnect.reconnect"),
+            Text.translatable("text.autoreconnect.disconnect.reconnect"),
             // schedule 100ms later to let the button click sound play
-            btn -> AutoReconnect.EXECUTOR_SERVICE.schedule(
+            btn -> AutoReconnect.schedule(
                 () -> MinecraftClient.getInstance().execute(this::manualReconnect), 100, TimeUnit.MILLISECONDS));
         shouldAutoReconnect = AutoReconnect.getConfig().hasAttempts();
         if (shouldAutoReconnect) {
@@ -53,7 +51,7 @@ public class DisconnectedScreensMixin extends Screen {
                 backButton.y,
                 backButton.getHeight(),
                 backButton.getHeight(),
-                new LiteralText("✕").styled(s -> s.withColor(Formatting.RED)),
+                Text.literal("✕").styled(s -> s.withColor(Formatting.RED)),
                 btn -> cancelCountdown()
             );
             addDrawableChild(cancelButton);
@@ -74,18 +72,18 @@ public class DisconnectedScreensMixin extends Screen {
         shouldAutoReconnect = false;
         remove(cancelButton);
         reconnectButton.active = true; // in case it was deactivated after running out of attempts
-        reconnectButton.setMessage(new TranslatableText("text.autoreconnect.disconnect.reconnect"));
+        reconnectButton.setMessage(Text.translatable("text.autoreconnect.disconnect.reconnect"));
         reconnectButton.setWidth(((ButtonWidget) children().get(0)).getWidth()); // reset to full width
     }
 
     private void countdownCallback(int seconds) {
         if (seconds < 0) {
             // indicates that we're out of attempts
-            reconnectButton.setMessage(new TranslatableText("text.autoreconnect.disconnect.reconnect_failed")
+            reconnectButton.setMessage(Text.translatable("text.autoreconnect.disconnect.reconnect_failed")
                 .styled(s -> s.withColor(Formatting.RED)));
             reconnectButton.active = false;
         } else {
-            reconnectButton.setMessage(new TranslatableText("text.autoreconnect.disconnect.reconnect_in", seconds)
+            reconnectButton.setMessage(Text.translatable("text.autoreconnect.disconnect.reconnect_in", seconds)
                 .styled(s -> s.withColor(Formatting.GREEN)));
         }
     }
