@@ -1,0 +1,26 @@
+{
+  "text.autoreconnect.disconnect.reconnect": "重新连接",
+  "text.autoreconnect.disconnect.reconnect_in": "在 %d 秒后重新连接...",
+  "text.autoreconnect.disconnect.cancel": "取消",
+  "text.autoreconnect.disconnect.reconnect_failed": "无法重新连接!",
+
+  "text.autoreconnect.config.title": "自动重新连接(AutoReconnect)配置",
+  "text.autoreconnect.config.option.delays": "延迟",
+  "text.autoreconnect.config.option.infinite": "无限连接",
+  "text.autoreconnect.config.option.automessages": "自动消息",
+  "text.autoreconnect.config.option.automessages.instance": "自动消息对象",
+  "text.autoreconnect.config.option.automessages.name": "Name",
+  "text.autoreconnect.config.option.automessages.messages": "Messages",
+  "text.autoreconnect.config.option.automessages.delay": "Delay",
+
+  "text.autoreconnect.config.tooltip.option.delays": "依次尝试以下的延迟,以秒为单位",
+  "text.autoreconnect.config.tooltip.option.infinite": "是否重复用最后的延迟连接",
+  "text.autoreconnect.config.tooltip.option.automessages": "自动重新连接成功后要发送的信息",
+  "text.autoreconnect.config.tooltip.option.automessages.instance": "单独针对一个特定世界,服务器或Realms的自动消息对象",
+  "text.autoreconnect.config.tooltip.option.automessages.name": "单人游戏世界,服务器或Realms的名称",
+  "text.autoreconnect.config.tooltip.option.automessages.messages": "自动重新连接后要发送的信息",
+  "text.autoreconnect.config.tooltip.option.automessages.delay": "每条消息之间和发送第一条之前的延迟,以毫秒为单位",
+
+  "text.autoreconnect.config.error.empty_list": "空的列表!",
+  "text.autoreconnect.config.error.empty_string": "空的文本字段!"
+}
