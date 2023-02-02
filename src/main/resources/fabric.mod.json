@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "${id}",
+  "id": "autoreconnect",
   "version": "${version}",
   "name": "${name}",
   "description": "This mod will automatically try to reconnect you back to a server if you got disconnected.\nBy default, it will make 4 attempts after 3, 10, 30 and 60 seconds.",
