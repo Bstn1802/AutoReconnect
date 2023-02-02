@@ -161,9 +161,9 @@ public class AutoReconnect implements ClientModInitializer {
             // The first starting slash has to be removed,
             // otherwise it will be interpreted as a double slash.
             String command = message.substring(1);
-            player.sendCommand(command);
+            player.networkHandler.sendCommand(command);
         } else {
-            player.sendChatMessage(message);
+            player.networkHandler.sendChatMessage(message);
         }
     }
 
