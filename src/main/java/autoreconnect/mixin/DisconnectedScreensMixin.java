@@ -5,6 +5,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.ButtonWidget.Builder;
 import net.minecraft.client.realms.gui.screen.DisconnectedRealmsScreen;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -16,6 +17,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.concurrent.TimeUnit;
 
 @Mixin({DisconnectedScreen.class, DisconnectedRealmsScreen.class})
+
+
+
 public class DisconnectedScreensMixin extends Screen {
     private ButtonWidget reconnectButton, cancelButton;
     private boolean shouldAutoReconnect;
@@ -24,14 +28,15 @@ public class DisconnectedScreensMixin extends Screen {
         super(text);
     }
 
+    public ButtonWidget.PressAction pressAction = btn -> AutoReconnect.schedule(() -> MinecraftClient.getInstance().execute(this::manualReconnect), 100, TimeUnit.MILLISECONDS);
+
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void constructor(Screen parent, Text title, Text reason, CallbackInfo info) {
-        reconnectButton = new ButtonWidget(
-            0, 0, 0, 20, // init height here, can't change it later, should always be 20
-            Text.translatable("text.autoreconnect.disconnect.reconnect"),
-            // schedule 100ms later to let the button click sound play
-            btn -> AutoReconnect.schedule(
-                () -> MinecraftClient.getInstance().execute(this::manualReconnect), 100, TimeUnit.MILLISECONDS));
+    public void constructor(Screen parent, Text title, Text reason, CallbackInfo info) {
+
+        Builder reconnectBuilder = ButtonWidget.builder(Text.translatable("text.autoreconnect.disconnect.reconnect"), pressAction);
+        
+        ButtonWidget reconnectButton = reconnectBuilder.dimensions(0, 0, 0, 20).build();
+
         shouldAutoReconnect = AutoReconnect.getConfig().hasAttempts();
         if (shouldAutoReconnect) {
             AutoReconnect.getInstance().startCountdown(this::countdownCallback);
@@ -40,26 +45,25 @@ public class DisconnectedScreensMixin extends Screen {
 
     @Inject(method = "init", at = @At("TAIL"))
     private void init(CallbackInfo info) {
+
+        Builder cancelBuilder = ButtonWidget.builder(Text.literal("✕").styled(s -> s.withColor(Formatting.RED)), btn -> cancelCountdown());
+
         ButtonWidget backButton = (ButtonWidget) children().get(0);
         // put reconnect (and cancel button) where back button is and push that down
-        reconnectButton.x = backButton.x;
-        reconnectButton.y = backButton.y;
+        reconnectButton.setX(backButton.getX());
+        reconnectButton.setY(backButton.getY());
         if (shouldAutoReconnect) {
             reconnectButton.setWidth(backButton.getWidth() - backButton.getHeight() - 4);
-            cancelButton = new ButtonWidget(
-                backButton.x + backButton.getWidth() - backButton.getHeight(),
-                backButton.y,
-                backButton.getHeight(),
-                backButton.getHeight(),
-                Text.literal("✕").styled(s -> s.withColor(Formatting.RED)),
-                btn -> cancelCountdown()
-            );
+
+            cancelButton = cancelBuilder.dimensions(backButton.getX() + backButton.getWidth() - backButton.getHeight(), backButton.getY(), 
+            backButton.getHeight(), backButton.getHeight()).build();
+
             addDrawableChild(cancelButton);
         } else {
             reconnectButton.setWidth(backButton.getWidth());
         }
         addDrawableChild(reconnectButton);
-        backButton.y += backButton.getHeight() + 4;
+        backButton.setY(backButton.getY() + backButton.getHeight() + 4);
     }
 
     private void manualReconnect() {
