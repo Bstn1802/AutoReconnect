@@ -17,9 +17,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.concurrent.TimeUnit;
 
 @Mixin({DisconnectedScreen.class, DisconnectedRealmsScreen.class})
-
-
-
 public class DisconnectedScreensMixin extends Screen {
     private ButtonWidget reconnectButton, cancelButton;
     private boolean shouldAutoReconnect;
@@ -28,12 +25,12 @@ public class DisconnectedScreensMixin extends Screen {
         super(text);
     }
 
-    public ButtonWidget.PressAction pressAction = btn -> AutoReconnect.schedule(() -> MinecraftClient.getInstance().execute(this::manualReconnect), 100, TimeUnit.MILLISECONDS);
+    
 
     @Inject(method = "<init>", at = @At("TAIL"))
     public void constructor(Screen parent, Text title, Text reason, CallbackInfo info) {
 
-        Builder reconnectBuilder = ButtonWidget.builder(Text.translatable("text.autoreconnect.disconnect.reconnect"), pressAction);
+        Builder reconnectBuilder = ButtonWidget.builder(Text.translatable("text.autoreconnect.disconnect.reconnect"), btn -> AutoReconnect.schedule(() -> MinecraftClient.getInstance().execute(this::manualReconnect), 100, TimeUnit.MILLISECONDS));
         
         ButtonWidget reconnectButton = reconnectBuilder.dimensions(0, 0, 0, 20).build();
 
@@ -45,9 +42,7 @@ public class DisconnectedScreensMixin extends Screen {
 
     @Inject(method = "init", at = @At("TAIL"))
     private void init(CallbackInfo info) {
-
         Builder cancelBuilder = ButtonWidget.builder(Text.literal("✕").styled(s -> s.withColor(Formatting.RED)), btn -> cancelCountdown());
-
         ButtonWidget backButton = (ButtonWidget) children().get(0);
         // put reconnect (and cancel button) where back button is and push that down
         reconnectButton.setX(backButton.getX());

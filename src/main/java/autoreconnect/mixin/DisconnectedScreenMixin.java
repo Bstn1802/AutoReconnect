@@ -16,7 +16,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(DisconnectedScreen.class)
 public class DisconnectedScreenMixin extends Screen {
-    @Shadow @Final @Mutable  private Screen parent;
+    @Shadow 
+    @Final 
+    @Mutable  
+    private Screen parent;
 
     protected DisconnectedScreenMixin(Text title) {
         super(title);

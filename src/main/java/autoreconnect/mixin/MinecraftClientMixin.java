@@ -17,7 +17,8 @@ import static org.objectweb.asm.Opcodes.PUTFIELD;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
-    @Shadow private Screen currentScreen;
+    @Shadow 
+    private Screen currentScreen;
 
     @Inject(method = "startIntegratedServer", at = @At("HEAD"))
     private void startIntegratedServer(String levelName, LevelStorage.Session session, ResourcePackManager dataPackManager, SaveLoader saveLoader, boolean newWorld, CallbackInfo info) {
