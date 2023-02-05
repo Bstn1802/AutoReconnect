@@ -32,7 +32,7 @@ public class DisconnectedScreensMixin extends Screen {
 
         Builder reconnectBuilder = ButtonWidget.builder(Text.translatable("text.autoreconnect.disconnect.reconnect"), btn -> AutoReconnect.schedule(() -> MinecraftClient.getInstance().execute(this::manualReconnect), 100, TimeUnit.MILLISECONDS));
         
-        ButtonWidget reconnectButton = reconnectBuilder.dimensions(0, 0, 0, 20).build();
+        reconnectButton = reconnectBuilder.dimensions(0, 0, 0, 20).build();
 
         shouldAutoReconnect = AutoReconnect.getConfig().hasAttempts();
         if (shouldAutoReconnect) {
