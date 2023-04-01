@@ -18,6 +18,8 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.IntConsumer;
 
+ // TODO take a look at https://github.com/Bstn1802/AutoReconnect/issues/42
+
 public class AutoReconnect implements ClientModInitializer {
     private static final ScheduledThreadPoolExecutor EXECUTOR_SERVICE = new ScheduledThreadPoolExecutor(1);
     private static AutoReconnect instance;
