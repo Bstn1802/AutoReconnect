@@ -25,9 +25,7 @@ public class DisconnectedScreensMixin extends Screen {
         super(text);
     }
 
-    
-
-    @Inject(method = "<init>", at = @At("TAIL"))
+    @Inject(method = "<init>*", at = @At("TAIL"))
     public void constructor(Screen parent, Text title, Text reason, CallbackInfo info) {
 
         Builder reconnectBuilder = ButtonWidget.builder(Text.translatable("text.autoreconnect.disconnect.reconnect"), btn -> AutoReconnect.schedule(() -> MinecraftClient.getInstance().execute(this::manualReconnect), 100, TimeUnit.MILLISECONDS));
@@ -43,7 +41,8 @@ public class DisconnectedScreensMixin extends Screen {
     @Inject(method = "init", at = @At("TAIL"))
     private void init(CallbackInfo info) {
         Builder cancelBuilder = ButtonWidget.builder(Text.literal("✕").styled(s -> s.withColor(Formatting.RED)), btn -> cancelCountdown());
-        ButtonWidget backButton = (ButtonWidget) children().get(0);
+        ButtonWidget backButton = AutoReconnect.findBackButton(this);
+
         // put reconnect (and cancel button) where back button is and push that down
         reconnectButton.setX(backButton.getX());
         reconnectButton.setY(backButton.getY());
@@ -72,7 +71,7 @@ public class DisconnectedScreensMixin extends Screen {
         remove(cancelButton);
         reconnectButton.active = true; // in case it was deactivated after running out of attempts
         reconnectButton.setMessage(Text.translatable("text.autoreconnect.disconnect.reconnect"));
-        reconnectButton.setWidth(((ButtonWidget) children().get(0)).getWidth()); // reset to full width
+        reconnectButton.setWidth(AutoReconnect.findBackButton(this).getWidth()); // reset to full width
     }
 
     private void countdownCallback(int seconds) {

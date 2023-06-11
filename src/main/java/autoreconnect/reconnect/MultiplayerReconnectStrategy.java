@@ -25,6 +25,6 @@ public class MultiplayerReconnectStrategy extends ReconnectStrategy {
             new MultiplayerScreen(new TitleScreen()),
             MinecraftClient.getInstance(),
             ServerAddress.parse(serverInfo.address),
-            serverInfo);
+            serverInfo, false);
     }
 }

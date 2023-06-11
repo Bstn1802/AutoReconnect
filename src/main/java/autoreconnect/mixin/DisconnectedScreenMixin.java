@@ -25,7 +25,7 @@ public class DisconnectedScreenMixin extends Screen {
         super(title);
     }
 
-    @Inject(at = @At("RETURN"), method = "<init>")
+    @Inject(at = @At("RETURN"), method = "<init>*")
     private void constructor(Screen parent, Text title, Text reason, CallbackInfo info) {
         if (AutoReconnect.getInstance().isPlayingSingleplayer()) {
             // make back button redirect to SelectWorldScreen instead of MultiPlayerScreen (Bug#45602)
@@ -37,7 +37,7 @@ public class DisconnectedScreenMixin extends Screen {
     private void init(CallbackInfo info) {
         if (AutoReconnect.getInstance().isPlayingSingleplayer()) {
             // change back button text to "Back" instead of "Back to Server List" bcs of bug fix above
-            ((ButtonWidget) children().get(0)).setMessage(ScreenTexts.BACK);
+            AutoReconnect.findBackButton(this).setMessage(ScreenTexts.BACK);
         }
     }
 
