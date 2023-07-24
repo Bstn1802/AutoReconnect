@@ -5,13 +5,16 @@ import autoreconnect.reconnect.ReconnectStrategy;
 import autoreconnect.reconnect.SingleplayerReconnectStrategy;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.screen.world.SelectWorldScreen;
+import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
+import net.minecraft.text.TranslatableTextContent;
 
 import java.util.Iterator;
 import java.util.concurrent.*;
@@ -181,5 +184,19 @@ public class AutoReconnect implements ClientModInitializer {
     private static boolean isReAuthenticating(Screen from, Screen to) {
         return from instanceof DisconnectedScreen && to != null &&
                 to.getClass().getName().startsWith("me.axieum.mcmod.authme");
+    }
+
+    public static ButtonWidget findBackButton(Screen screen) {
+        for(Element element : screen.children()) {
+            if(!(element instanceof ButtonWidget button)) continue;
+            TranslatableTextContent translatable;
+            if(button.getMessage() instanceof TranslatableTextContent t) translatable = t;
+            else if(button.getMessage().getContent() instanceof TranslatableTextContent t) translatable = t;
+            else continue;
+
+            if(translatable.getKey().equals("gui.toMenu") || translatable.getKey().equals("gui.back"))
+                return button;
+        }
+        throw new RuntimeException("AutoReconnect: Failed to find back button!");
     }
 }
