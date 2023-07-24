@@ -15,6 +15,7 @@
 
   "text.autoreconnect.config.tooltip.option.delays": "Delays between attempts in seconds",
   "text.autoreconnect.config.tooltip.option.infinite": "Whether to repeat reconnecting with the last configured delay",
+  "text.autoreconnect.config.tooltip.option.serveraddress": "Server address to reconnect to",
   "text.autoreconnect.config.tooltip.option.automessages": "Messages to send after a successful automatic reconnect",
   "text.autoreconnect.config.tooltip.option.automessages.instance": "Single AutoMessages object for a specific world, server or realm",
   "text.autoreconnect.config.tooltip.option.automessages.name": "Name of the singleplayer world, server entry or realm",

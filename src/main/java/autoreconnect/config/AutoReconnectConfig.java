@@ -6,8 +6,10 @@ import com.google.gson.JsonSyntaxException;
 import com.mojang.logging.LogUtils;
 import net.fabricmc.loader.api.FabricLoader;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -21,10 +23,12 @@ public final class AutoReconnectConfig {
     static final List<Integer> defaultDelays = List.of(3, 10, 30, 60);
     static final int defaultDelay = 10;
     static final boolean defaultInfinite = false;
+    public static final String defaultServerAddress = "localhost";
     static final List<AutoMessages> defaultAutoMessages = List.of();
 
     List<Integer> delays = defaultDelays;
     boolean infinite = defaultInfinite;
+    public String serverAddress = defaultServerAddress;
     List<AutoMessages> autoMessages = defaultAutoMessages;
 
     private AutoReconnectConfig() { }
@@ -35,13 +39,12 @@ public final class AutoReconnectConfig {
 
     public static void load() {
         try {
-            instance = GSON.fromJson(
-                Files.readString(FabricLoader.getInstance().getConfigDir().resolve(FILE_NAME)),
-                AutoReconnectConfig.class);
+            instance = GSON.fromJson(Files.readString(FabricLoader.getInstance().getConfigDir().resolve(FILE_NAME)), AutoReconnectConfig.class);
             instance.validate();
         } catch (IOException | JsonSyntaxException ex) {
             LogUtils.getLogger().warn("AutoReconnect could not load the config", ex);
             instance = new AutoReconnectConfig();
+            instance.save();
         }
     }
 

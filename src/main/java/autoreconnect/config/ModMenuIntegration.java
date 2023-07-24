@@ -44,6 +44,13 @@ public class ModMenuIntegration implements ModMenuApi {
                 .setTooltip(Text.translatable("text.autoreconnect.config.tooltip.option.infinite"))
                 .setSaveConsumer(infinite -> AutoReconnectConfig.getInstance().infinite = infinite)
                 .build())
+            .addEntry(entryBuilder.startTextField(
+                    Text.translatable("text.autoreconnect.config.tooltip.option.serveraddress"),
+                    AutoReconnectConfig.getInstance().serverAddress)
+                 .setDefaultValue(AutoReconnectConfig.defaultServerAddress)
+                 .setTooltip(Text.translatable("text.autoreconnect.config.tooltip.option.serveraddress"))
+                 .setSaveConsumer(serverAddress -> AutoReconnectConfig.getInstance().serverAddress = serverAddress)
+                 .build())
             .addEntry(new NestedListListEntry<AutoMessages, MultiElementListEntry<AutoMessages>>(
                 Text.translatable("text.autoreconnect.config.option.automessages"),
                 AutoReconnectConfig.getInstance().autoMessages,

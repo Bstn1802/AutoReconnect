@@ -1,6 +1,7 @@
 package autoreconnect;
 
 import autoreconnect.config.AutoReconnectConfig;
+import autoreconnect.reconnect.MultiplayerReconnectStrategy;
 import autoreconnect.reconnect.ReconnectStrategy;
 import autoreconnect.reconnect.SingleplayerReconnectStrategy;
 import com.mojang.logging.LogUtils;
@@ -14,6 +15,7 @@ import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.network.ServerInfo;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.text.TranslatableTextContent;
 
@@ -76,7 +78,6 @@ public class AutoReconnect implements ClientModInitializer {
             callback.accept(-1); // signal reconnecting is not possible
             return;
         }
-
         int delay = getConfig().getDelayForAttempt(reconnectStrategy.nextAttempt());
         if (delay >= 0) {
             countdown(delay, callback);
@@ -101,8 +102,18 @@ public class AutoReconnect implements ClientModInitializer {
         }
     }
 
-    public void onGameJoined() {
-        if (reconnectStrategy == null) return; // should not happen
+    public void onGameJoined(ServerInfo serverInfo) {
+        if (reconnectStrategy == null) {
+            // Multimc use the --server flag, so mixins won't register the screen and the reconnect strategy won't be set,
+            // I assume ServerInfo is populated only in multiplayer cases (server added to the list)
+            // We also check if the config is still using the default server address, cuz if not, we can use that one as it was set by the user
+            if ((serverInfo != null && !serverInfo.isLocal()) && AutoReconnectConfig.getInstance().serverAddress.equals(AutoReconnectConfig.defaultServerAddress))
+                setReconnectHandler(new MultiplayerReconnectStrategy(serverInfo));
+            else setReconnectHandler(new MultiplayerReconnectStrategy(new ServerInfo("Multiplayer", AutoReconnectConfig.getInstance().serverAddress, false)));
+
+            return;
+        }
+
         if (!reconnectStrategy.isAttempting()) return; // manual (re)connect
 
         reconnectStrategy.resetAttempts();
