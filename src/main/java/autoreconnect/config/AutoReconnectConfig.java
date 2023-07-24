@@ -6,10 +6,8 @@ import com.google.gson.JsonSyntaxException;
 import com.mojang.logging.LogUtils;
 import net.fabricmc.loader.api.FabricLoader;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
