@@ -1,13 +1,13 @@
 # AutoReconnect [1.20.x][Fabric][Client]
 
-### Description
+## Description
 
 This mod will automatically try to reconnect you back to a server if you got disconnected.
 By default, it will make 4 attempts after 3, 10, 30 and 60 seconds.
 
 _Disclaimer:_ Use at your own risk. When using this on a multiplayer server/realm you might want to check with the admins first whether it's okay to use this mod.
 
-### Features
+## Features
 
 General:
 * Additional button on the disconnect screen which will reconnect you without having to go back to the menu first
@@ -33,7 +33,7 @@ Extras:
 * The disconnect screen (like many other screens) can be exited by pressing escape
 * After being disconnected from a singleplayer world, you won't end up on the multiplayer screen. A fix has been implemented for ([Bug MC-46502](https://bugs.mojang.com/browse/MC-45602)) 
 
-### Requirements/Installation/Setup
+## Requirements/Installation/Setup
 
 This mod works on [Fabric](https://fabricmc.net/use/) and requires the [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api), [ClothConfig](https://www.curseforge.com/minecraft/mc-mods/cloth-config) and [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu)  
 
@@ -50,7 +50,7 @@ This mod works on [Fabric](https://fabricmc.net/use/) and requires the [Fabric A
    * Click on the configuration button on top of the icon of this mod in the list on the left or the one at the top right if you selected the mod
    * The configuration of this mod should open and look similar to the screenshots below
 
-### Compatibility/Support
+## Compatibility/Support
 
 * [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu)
   * Properly shows the mod icon, name and author
@@ -59,7 +59,7 @@ This mod works on [Fabric](https://fabricmc.net/use/) and requires the [Fabric A
 * [AuthMe](https://www.curseforge.com/minecraft/mc-mods/auth-me)
   * Countdown for automatic reconnect will stop if you're re-authenticating to revalidate your session
 
-### Details
+## Details
 
 AutoReconnect:
 * Attempts can be configured by adding strictly positive values (delay in seconds) to the list of delays. For each value in that list a delayed attempt will be made to reconnect you.
@@ -72,19 +72,19 @@ AutoMessages:
 * Can target multiple specific servers, realms or singleplayer worlds. Create a configuration under the section "AutoMessages" for each one and enter the name of the server, realm or singleplayer world.
 * A delay (in milliseconds) can be configured. This delay will be the same between every message and before the first message after the instant you join the world.
 
-### Future plans
+## Future plans
 
-* Modify 
+* Modify internal structures to pick up quickPlay connects (or mods/alternative launchers directly connecting you to somewhere) which don't go through the ui
 * Reconnect from being kicked into a lobby (feature request [issue #22](https://github.com/Bstn1802/AutoReconnect/issues/22))
 * Conditional reconnects, e.g. configure the mod not to reconnect when a moderator kicked you (feature request [issue #36](https://github.com/Bstn1802/AutoReconnect/issues/36))
 * I'm _not_ planning to port this mod to forge
 
-### Feedback, Suggestions, Bugs & Issues
+## Feedback, Suggestions, Bugs & Issues
 
 * For feedback and suggestions please write a comment on [curseforge](https://www.curseforge.com/minecraft/mc-mods/autoreconnect)
 * If you found a bug or an issue, write a comment on [curseforge](https://www.curseforge.com/minecraft/mc-mods/autoreconnect) or open an issue on [github](https://github.com/Bstn1802/AutoReconnect/issues). Make sure to give a detailed description of the issue and post the latest logs, or a potential crash report, preferably by using something like [pastebin](https://pastebin.com/).
 
-### Screenshots
+## Screenshots
 
 ![countdown](screenshots/countdown.png)
 
@@ -93,3 +93,11 @@ AutoMessages:
 ![manual](screenshots/manual.png)
 
 ![config](screenshots/config.png)
+
+_Last one outdated_
+
+## Licence
+
+This mod and its code is available under the GNU General Public Licence v3.0.
+
+If you use code from this mod or the mod itself in a mod pack I would appreciate it if you would mention me by linking to this page.
