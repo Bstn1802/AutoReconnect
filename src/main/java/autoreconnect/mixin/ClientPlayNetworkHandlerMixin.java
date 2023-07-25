@@ -4,7 +4,6 @@ import autoreconnect.AutoReconnect;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
-import org.apache.logging.log4j.core.jmx.Server;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
