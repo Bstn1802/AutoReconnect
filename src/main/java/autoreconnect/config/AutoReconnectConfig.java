@@ -3,8 +3,8 @@ package autoreconnect.config;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
+import com.mojang.logging.LogUtils;
 import net.fabricmc.loader.api.FabricLoader;
-import org.apache.logging.log4j.LogManager;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -40,7 +40,7 @@ public final class AutoReconnectConfig {
                 AutoReconnectConfig.class);
             instance.validate();
         } catch (IOException | JsonSyntaxException ex) {
-            LogManager.getRootLogger().warn("AutoReconnect could not load the config", ex);
+            LogUtils.getLogger().warn("AutoReconnect could not load the config", ex);
             instance = new AutoReconnectConfig();
         }
     }
@@ -62,7 +62,7 @@ public final class AutoReconnectConfig {
         try {
             Files.writeString(FabricLoader.getInstance().getConfigDir().resolve(FILE_NAME), GSON.toJson(this));
         } catch (IOException ex) {
-            LogManager.getRootLogger().warn("AutoReconnect could not load the config", ex);
+            LogUtils.getLogger().error("AutoReconnect could not save the config", ex);
         }
     }
 

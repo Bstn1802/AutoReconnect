@@ -3,6 +3,7 @@ package autoreconnect;
 import autoreconnect.config.AutoReconnectConfig;
 import autoreconnect.reconnect.ReconnectStrategy;
 import autoreconnect.reconnect.SingleplayerReconnectStrategy;
+import com.mojang.logging.LogUtils;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.Element;
@@ -17,6 +18,7 @@ import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.text.TranslatableTextContent;
 
 import java.util.Iterator;
+import java.util.Optional;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.IntConsumer;
@@ -45,8 +47,8 @@ public class AutoReconnect implements ClientModInitializer {
         return AutoReconnectConfig.getInstance();
     }
 
-    public static void schedule(Runnable command, long delay, TimeUnit timeUnit) {
-        EXECUTOR_SERVICE.schedule(command, delay, timeUnit);
+    public static ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit timeUnit) {
+        return EXECUTOR_SERVICE.schedule(command, delay, timeUnit);
     }
 
     public void setReconnectHandler(ReconnectStrategy reconnectStrategy) {
@@ -54,7 +56,7 @@ public class AutoReconnect implements ClientModInitializer {
             // should imply that both handlers target the same world/server
             // we return to preserve the attempts counter
             assert this.reconnectStrategy.getClass().equals(reconnectStrategy.getClass()) &&
-                    this.reconnectStrategy.getName().equals(reconnectStrategy.getName());
+                this.reconnectStrategy.getName().equals(reconnectStrategy.getName());
             return;
         }
         this.reconnectStrategy = reconnectStrategy;
@@ -68,6 +70,13 @@ public class AutoReconnect implements ClientModInitializer {
 
     public void startCountdown(final IntConsumer callback) {
         // if (countdown.get() != null) return; // should not happen
+        if (reconnectStrategy == null) {
+            // TODO fix issue appropriately, logging error for now
+            LogUtils.getLogger().error("Cannot reconnect because reconnectStrategy is null");
+            callback.accept(-1); // signal reconnecting is not possible
+            return;
+        }
+
         int delay = getConfig().getDelayForAttempt(reconnectStrategy.nextAttempt());
         if (delay >= 0) {
             countdown(delay, callback);
@@ -100,11 +109,11 @@ public class AutoReconnect implements ClientModInitializer {
 
         // Send automatic messages if configured for the current context
         getConfig().getAutoMessagesForName(reconnectStrategy.getName()).ifPresent(
-                autoMessages -> sendAutomatedMessages(
-                        MinecraftClient.getInstance().player,
-                        autoMessages.getMessages(),
-                        autoMessages.getDelay()
-                )
+            autoMessages -> sendAutomatedMessages(
+                MinecraftClient.getInstance().player,
+                autoMessages.getMessages(),
+                autoMessages.getDelay()
+            )
         );
     }
 
@@ -129,8 +138,7 @@ public class AutoReconnect implements ClientModInitializer {
         callback.accept(seconds);
         // wait at end of method for no initial delay
         synchronized (countdown) { // just to be sure
-            countdown.set(EXECUTOR_SERVICE.schedule(() ->
-                    countdown(seconds - 1, callback), 1, TimeUnit.SECONDS));
+            countdown.set(schedule(() -> countdown(seconds - 1, callback), 1, TimeUnit.SECONDS));
         }
     }
 
@@ -178,25 +186,30 @@ public class AutoReconnect implements ClientModInitializer {
 
     private static boolean isMainScreen(Screen screen) {
         return screen instanceof TitleScreen || screen instanceof SelectWorldScreen ||
-                screen instanceof MultiplayerScreen || screen instanceof RealmsMainScreen;
+            screen instanceof MultiplayerScreen || screen instanceof RealmsMainScreen;
     }
 
     private static boolean isReAuthenticating(Screen from, Screen to) {
         return from instanceof DisconnectedScreen && to != null &&
-                to.getClass().getName().startsWith("me.axieum.mcmod.authme");
+            to.getClass().getName().startsWith("me.axieum.mcmod.authme");
     }
 
-    public static ButtonWidget findBackButton(Screen screen) {
-        for(Element element : screen.children()) {
-            if(!(element instanceof ButtonWidget button)) continue;
-            TranslatableTextContent translatable;
-            if(button.getMessage() instanceof TranslatableTextContent t) translatable = t;
-            else if(button.getMessage().getContent() instanceof TranslatableTextContent t) translatable = t;
-            else continue;
+    public static Optional<ButtonWidget> findBackButton(Screen screen) {
+        for (Element element : screen.children()) {
+            if (!(element instanceof ButtonWidget button)) continue;
 
-            if(translatable.getKey().equals("gui.toMenu") || translatable.getKey().equals("gui.back"))
-                return button;
+            String translatableKey;
+            if (button.getMessage() instanceof TranslatableTextContent translatable) {
+                translatableKey = translatable.getKey();
+            } else if (button.getMessage().getContent() instanceof TranslatableTextContent translatable) {
+                translatableKey = translatable.getKey();
+            } else continue;
+
+            // check for gui.back, gui.toMenu, gui.toRealms, gui.toTitle, gui.toWorld (only ones starting with "gui.to")
+            if (translatableKey.equals("gui.back") || translatableKey.startsWith("gui.to")) {
+                return Optional.of(button);
+            }
         }
-        throw new RuntimeException("AutoReconnect: Failed to find back button!");
+        return Optional.empty();
     }
 }
