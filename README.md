@@ -11,6 +11,7 @@ _Disclaimer:_ Use at your own risk. When using this on a multiplayer server/real
 
 General:
 * Additional button on the disconnect screen which will reconnect you without having to go back to the menu first
+* Works with QuickPlay
 * Configurable through [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu)
 
 AutoReconnect:
@@ -76,7 +77,6 @@ AutoMessages:
 
 ## Future plans
 
-* Modify internal structures to pick up quickPlay connects (or mods/alternative launchers directly connecting you to somewhere) which don't go through the ui
 * Reconnect from being kicked into a lobby (feature request [issue #22](https://github.com/Bstn1802/AutoReconnect/issues/22))
 * Conditional reconnects, e.g. configure the mod not to reconnect when a moderator kicked you (feature request [issue #36](https://github.com/Bstn1802/AutoReconnect/issues/36))
 * I'm _not_ planning to port this mod to forge

@@ -19,12 +19,16 @@ public class MultiplayerReconnectStrategy extends ReconnectStrategy {
         return serverInfo.name;
     }
 
+    /**
+     * @see net.minecraft.client.QuickPlay#startMultiplayer(MinecraftClient, String)
+     */
     @Override
     public void reconnect() {
         ConnectScreen.connect(
             new MultiplayerScreen(new TitleScreen()),
             MinecraftClient.getInstance(),
             ServerAddress.parse(serverInfo.address),
-            serverInfo, false);
+            serverInfo,
+            false);
     }
 }

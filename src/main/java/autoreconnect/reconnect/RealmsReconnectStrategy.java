@@ -2,8 +2,13 @@ package autoreconnect.reconnect;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.TitleScreen;
+import net.minecraft.client.realms.RealmsClient;
 import net.minecraft.client.realms.dto.RealmsServer;
+import net.minecraft.client.realms.gui.screen.RealmsLongRunningMcoTaskScreen;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
+import net.minecraft.client.realms.task.RealmsGetServerDetailsTask;
+
+import java.util.concurrent.locks.ReentrantLock;
 
 public class RealmsReconnectStrategy extends ReconnectStrategy {
     private final RealmsServer realmsServer;
@@ -17,10 +22,13 @@ public class RealmsReconnectStrategy extends ReconnectStrategy {
         return realmsServer.getName();
     }
 
+    /**
+     * @see net.minecraft.client.QuickPlay#startRealms(MinecraftClient, RealmsClient, String)
+     */
     @Override
     public void reconnect() {
-        RealmsMainScreen realmsMainScreen = new RealmsMainScreen(new TitleScreen());
-        realmsMainScreen.init(MinecraftClient.getInstance(), 0, 0); // init but don't set screen!
-        realmsMainScreen.play(realmsServer, realmsMainScreen);
+        TitleScreen titleScreen = new TitleScreen();
+        RealmsGetServerDetailsTask realmsGetServerDetailsTask = new RealmsGetServerDetailsTask(new RealmsMainScreen(titleScreen), titleScreen, realmsServer, new ReentrantLock());
+        MinecraftClient.getInstance().setScreen(new RealmsLongRunningMcoTaskScreen(titleScreen, realmsGetServerDetailsTask));
     }
 }
