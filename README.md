@@ -98,6 +98,6 @@ _Last one outdated_
 
 ## Licence
 
-This mod and its code is available under the GNU General Public Licence v3.0.
+This mod and its code is available under the GNU Lesser General Public Licence v3.0.
 
 If you use code from this mod or the mod itself in a mod pack I would appreciate it if you would mention me by linking to this page.
