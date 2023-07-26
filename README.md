@@ -1,4 +1,4 @@
-# AutoReconnect [1.20.x][Fabric][Client]
+# AutoReconnect [1.20.1][Fabric][Client]
 
 ## Description
 
@@ -35,15 +35,17 @@ Extras:
 
 ## Requirements/Installation/Setup
 
-This mod works on [Fabric](https://fabricmc.net/use/) and requires the [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api), [ClothConfig](https://www.curseforge.com/minecraft/mc-mods/cloth-config) and [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu)  
+This mod works on [Fabric](https://fabricmc.net/use/) and requires the [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) and [ClothConfig](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
+
+[Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu) is highly recommended for easy in-game configuration  
 
 1. If you don't have a fabric profile set up, download and install [Fabric](https://fabricmc.net/use/) and set up a profile to your likings
 2. Download the following mods and put them in the mod folder of your profile:\
    (Be careful with the versions you download, make sure the mods are for fabric (not forge) and the right version of minecraft)
    * [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api)
    * [ClothConfig](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
-   * [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu)
    * AutoReconnect (this mod)
+   * [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu) _(optional)_
 3. Setup:
    * Start up minecraft and when you see the title screen, click on "Mods"
    * Find and select this mod in the list of mods to your left

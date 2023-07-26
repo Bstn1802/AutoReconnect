@@ -42,6 +42,7 @@ public final class AutoReconnectConfig {
         } catch (IOException | JsonSyntaxException ex) {
             LogUtils.getLogger().warn("AutoReconnect could not load the config", ex);
             instance = new AutoReconnectConfig();
+            instance.save();
         }
     }
 
