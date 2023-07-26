@@ -1,0 +1,26 @@
+{
+  "text.autoreconnect.disconnect.reconnect": "Erneut verbinden",
+  "text.autoreconnect.disconnect.reconnect_in": "Verbinde erneut in %d...",
+  "text.autoreconnect.disconnect.cancel": "Abbrechen",
+  "text.autoreconnect.disconnect.reconnect_failed": "Konnte nicht erneut verbinden!",
+
+  "text.autoreconnect.config.title": "AutoReconnect Konfiguration",
+  "text.autoreconnect.config.option.delays": "Verzögerungen",
+  "text.autoreconnect.config.option.infinite": "Unendlich",
+  "text.autoreconnect.config.option.automessages": "Automatische Nachrichten",
+  "text.autoreconnect.config.option.automessages.instance": "Automatische Nachricht",
+  "text.autoreconnect.config.option.automessages.name": "Bezeichnung",
+  "text.autoreconnect.config.option.automessages.messages": "Nachricht",
+  "text.autoreconnect.config.option.automessages.delay": "Verzögerung",
+
+  "text.autoreconnect.config.tooltip.option.delays": "Verzögerungen zwischen den\nVerbindungsversuchen in Sekunden.",
+  "text.autoreconnect.config.tooltip.option.infinite": "Ob unbegrenzt oft versucht werden\nsoll die Verbindung mit der letzten\nVerzögerung wiederherzustellen.",
+  "text.autoreconnect.config.tooltip.option.automessages": "Nachrichten automatisch nach\ndem erneuten Verbinden senden.",
+  "text.autoreconnect.config.tooltip.option.automessages.instance": "Einzelne automatische Nachricht\nfür eine spezifische Welt, Server\noder einen Realm.",
+  "text.autoreconnect.config.tooltip.option.automessages.name": "Name der Einzelspielerwelt,\ndes Servers oder des Realms.",
+  "text.autoreconnect.config.tooltip.option.automessages.messages": "Nachricht, die nach einer erneuten\nVerbindung gesendet werden soll.",
+  "text.autoreconnect.config.tooltip.option.automessages.delay": "Verzögerung vor der ersten und\nzwischen jeder weiteren Nachricht\nin Millisekunden.",
+
+  "text.autoreconnect.config.error.empty_list": "Leere Liste!",
+  "text.autoreconnect.config.error.empty_string": "Leeres Textfeld!"
+}
