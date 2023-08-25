@@ -5,12 +5,16 @@ import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.world.SelectWorldScreen;
+import net.minecraft.client.MinecraftClient;
+import com.mojang.logging.LogUtils;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+
 
 @Mixin(DisconnectedScreen.class)
 public class DisconnectedScreenMixin extends Screen {
@@ -25,6 +29,13 @@ public class DisconnectedScreenMixin extends Screen {
 
     @Inject(at = @At("RETURN"), method = "<init>(Lnet/minecraft/client/gui/screen/Screen;Lnet/minecraft/text/Text;Lnet/minecraft/text/Text;Lnet/minecraft/text/Text;)V")
     private void constructor(Screen parent, Text title, Text reason, Text buttonLabel, CallbackInfo info) {
+        // close game
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (client != null && reason != null && reason.getString().contains("Invalid session")) {
+            LogUtils.getLogger().error("AutoReconnect closing game because of expired token...");
+            client.stop();
+        }
+
         if (AutoReconnect.getInstance().isPlayingSingleplayer()) {
             // make back button redirect to SelectWorldScreen instead of MultiPlayerScreen (https://bugs.mojang.com/browse/MC-45602)
             this.parent = new SelectWorldScreen(new TitleScreen());
