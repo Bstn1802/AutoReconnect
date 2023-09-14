@@ -1,0 +1,26 @@
+{
+  "text.autoreconnect.disconnect.reconnect": "Переподключиться",
+  "text.autoreconnect.disconnect.reconnect_in": "Переподключение через %d...",
+  "text.autoreconnect.disconnect.cancel": "Отмена",
+  "text.autoreconnect.disconnect.reconnect_failed": "Не удалось переподключиться!",
+
+  "text.autoreconnect.config.title": "Настройки AutoReconnect",
+  "text.autoreconnect.config.option.delays": "Ожидание",
+  "text.autoreconnect.config.option.infinite": "Бесконечно",
+  "text.autoreconnect.config.option.automessages": "Автоматические сообщения",
+  "text.autoreconnect.config.option.automessages.instance": "Объект автоматического сообщения",
+  "text.autoreconnect.config.option.automessages.name": "Имя",
+  "text.autoreconnect.config.option.automessages.messages": "Сообщение",
+  "text.autoreconnect.config.option.automessages.delay": "Задержка",
+
+  "text.autoreconnect.config.tooltip.option.delays": "Время, которое должно проходить перед попытками подключиться",
+  "text.autoreconnect.config.tooltip.option.infinite": "Нужно ли повторять попытки подключится бесконечно согласно с конфигурацией",
+  "text.autoreconnect.config.tooltip.option.automessages": "Сообщения, которые нужно отправить после успешного автоматического подключения",
+  "text.autoreconnect.config.tooltip.option.automessages.instance": "Объект автоматического сообщения, специфичный для сервера, мира или Realm'а",
+  "text.autoreconnect.config.tooltip.option.automessages.name": "Имя мира, сервера или Realm'а",
+  "text.autoreconnect.config.tooltip.option.automessages.messages": "Сообщения, отправляющиеся автоматически после переподключения",
+  "text.autoreconnect.config.tooltip.option.automessages.delay": "Время, которое пройдет перед отправкой первого сообщения",
+
+  "text.autoreconnect.config.error.empty_list": "Пустой список",
+  "text.autoreconnect.config.error.empty_string": "Пустое текстовое поле"
+}
