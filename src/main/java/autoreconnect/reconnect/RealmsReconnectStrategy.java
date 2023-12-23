@@ -6,9 +6,9 @@ import net.minecraft.client.realms.RealmsClient;
 import net.minecraft.client.realms.dto.RealmsServer;
 import net.minecraft.client.realms.gui.screen.RealmsLongRunningMcoTaskScreen;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
-import net.minecraft.client.realms.task.RealmsGetServerDetailsTask;
+import net.minecraft.client.realms.task.OpenServerTask;
 
-import java.util.concurrent.locks.ReentrantLock;
+//import java.util.concurrent.locks.ReentrantLock;
 
 public class RealmsReconnectStrategy extends ReconnectStrategy {
     private final RealmsServer realmsServer;
@@ -28,7 +28,14 @@ public class RealmsReconnectStrategy extends ReconnectStrategy {
     @Override
     public void reconnect() {
         TitleScreen titleScreen = new TitleScreen();
-        RealmsGetServerDetailsTask realmsGetServerDetailsTask = new RealmsGetServerDetailsTask(new RealmsMainScreen(titleScreen), titleScreen, realmsServer, new ReentrantLock());
+        OpenServerTask realmsGetServerDetailsTask = new OpenServerTask(realmsServer, new RealmsMainScreen(titleScreen), true, MinecraftClient.getInstance());
         MinecraftClient.getInstance().setScreen(new RealmsLongRunningMcoTaskScreen(titleScreen, realmsGetServerDetailsTask));
+        /*
+         * The RealmsGetServerDetailsTask seems to have been removed in either 1.20.3 or 1.20.4
+         * The 2 Tasks that seemed to fit the most were OpenServerTask and RealmsPrepareConnectionTask
+         * I looked into the OpenServerTask, and saw that if the boolean join was true, 
+         * it would execute a play method in the RealmsMainScreen class that in turn runs the RealmsPrepareConnectionTask
+         * Hence I decided to use the OpenServerTask for now
+         */
     }
 }
