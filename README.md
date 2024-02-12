@@ -1,4 +1,4 @@
-# AutoReconnect [1.20.1][Fabric][Client]
+# AutoReconnect [1.20.4][Fabric][Client]
 
 ## Description
 

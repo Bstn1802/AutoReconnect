@@ -1,11 +1,12 @@
 plugins {
-    id 'fabric-loom' version '1.3-SNAPSHOT'
+    id 'fabric-loom' version '1.5-SNAPSHOT'
 }
 
 // Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
 var java_version = 17
 
 version = project.mod_version
+//noinspection GroovyUnusedAssignment
 archivesBaseName = project.mod_id
 
 repositories {

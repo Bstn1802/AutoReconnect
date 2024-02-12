@@ -21,7 +21,8 @@ public class MinecraftClientMixin {
     public Screen currentScreen;
 
     @Inject(method = "startIntegratedServer", at = @At("HEAD"))
-    private void startIntegratedServer(String levelName, LevelStorage.Session session, ResourcePackManager dataPackManager, SaveLoader saveLoader, boolean newWorld, CallbackInfo info) {
+    private void startIntegratedServer(LevelStorage.Session session, ResourcePackManager dataPackManager, SaveLoader saveLoader, boolean newWorld, CallbackInfo ci) {
+        var levelName = saveLoader.saveProperties().getLevelName();
         AutoReconnect.getInstance().setReconnectHandler(new SingleplayerReconnectStrategy(levelName));
     }
 
