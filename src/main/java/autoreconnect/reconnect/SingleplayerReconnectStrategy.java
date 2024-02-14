@@ -2,6 +2,7 @@ package autoreconnect.reconnect;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.MessageScreen;
+import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.text.Text;
 
 public class SingleplayerReconnectStrategy extends ReconnectStrategy {
@@ -24,7 +25,7 @@ public class SingleplayerReconnectStrategy extends ReconnectStrategy {
         MinecraftClient client = MinecraftClient.getInstance();
         if (!client.getLevelStorage().levelExists(getName())) return;
         client.setScreenAndRender(new MessageScreen(Text.translatable("selectWorld.data_read")));
-        client.createIntegratedServerLoader().start(getName(), () -> {});
+        client.createIntegratedServerLoader().start(getName(), () -> client.setScreen(new TitleScreen()));
         /*
          * The method signature for the IntegratedServerLoader.start() method was changed in either 1.20.3 or 1.20.4
          * It now needs a runnable as the 2nd parameter (parameter name is onCancel)
